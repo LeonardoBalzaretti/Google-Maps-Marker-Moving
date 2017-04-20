@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+		<title>Marker Moving</title>
+		<style>
+			html{height:100%;}
+			body{height:100%;margin:0px;font-family: Helvetica,Arial;}
+		</style>
+
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type ="text/javascript" src="jquery-1.10.2.min.js"></script>
+		<script type ="text/javascript" src="moveMarker.js"></script>
+		<script>
+			function initialize() {
+				var mapOptions = {
+					zoom: 15,
+					center: new google.maps.LatLng(-30.03343326312898, -51.22907638549805),
+					mapTypeId: 'roadmap',
+					streetViewControl: false,
+					overviewMapControl: true,
+					overviewMapControlOptions: {
+						opened: true
+					},
+					panControl: true, //Painel que movimenta o mapa (Norte, Sul, Leste e Oeste)
+					scaleControl: true					
+				};
+				
+				var array = new Array();
+				var teste = new Object();
+				teste.id = 3;
+				teste.positions = [[-29.98432308407781,-51.12620830535889],[-29.984583285273235,-51.12968444824219],[-29.98123778936264,-51.12985610961914],[-29.981442239568203,-51.133761405944824],[-29.988151690015506,-51.133224964141846],[-29.987761401992998,-51.12635850906372],[-29.991013755301996,-51.125972270965576],[-29.994674848403317,-51.12989902496338],[-29.999803868478406,-51.132774353027344],[-30.00270276257507,-51.13461971282959],[-30.00760839042573,-51.14142179489136],[-30.009670911522644,-51.144490242004395],[-30.010376989973192,-51.14693641662598],[-30.010376989973192,-51.153244972229004],[-30.010358409025724,-51.15826606750488],[-30.01119454821617,-51.16330862045288],[-30.011844873824938,-51.16729974746704],[-30.011844873824938,-51.16976737976074],[-30.008593203145562,-51.17189168930054],[-30.00803576318409,-51.17251396179199],[-30.00790569340905,-51.1737585067749],[-30.00825873954456,-51.1753249168396],[-30.008593203145562,-51.17854356765747],[-30.008481715403846,-51.18298530578613],[-30.007348249584474,-51.18652582168579],[-30.00714385273067,-51.189637184143066],[-30.00708810806109,-51.19171857833862],[-30.004486655311215,-51.2003231048584],[-30.012662419969633,-51.20352029800415],[-30.014186010712976,-51.20452880859375],[-30.017939146604522,-51.20909929275513],[-30.021190510890413,-51.21124505996704],[-30.022193767489,-51.21224284172058],[-30.02052166751847,-51.214656829833984],[-30.0226768133419,-51.21575117111206],[-30.023484980948723,-51.2163519859314],[-30.02503627272341,-51.21743559837341],[-30.025900155224946,-51.21849775314331],[-30.02657825126972,-51.21981739997864],[-30.02661540708334,-51.22247815132141],[-30.026215981357115,-51.22255325317383],[-30.026234559333552,-51.22292876243591],[-30.02440461193638,-51.22352957725525],[-30.026067357420263,-51.22695207595825],[-30.02632744916354,-51.22783184051514],[-30.026680429723665,-51.22946262359619],[-30.027256342676186,-51.2307608127594],[-30.029104814871182,-51.22998833656311],[-30.028463891230025,-51.22817516326904]];
+				array.push(teste);
+				teste = new Object();
+				teste.id = 5;
+				teste.positions = [[-29.978666638726445,-51.184290647070156],[-29.98035803064314,-51.18538498834823],[-29.980079231760378,-51.186565160314785],[-29.978815333676103,-51.18617892221664],[-29.977384135545854,-51.18620037988876],[-29.97766294199377,-51.18901133493637],[-29.979874778748943,-51.18944048837875],[-29.9805438961302,-51.1896121497557],[-29.979856192090676,-51.19195103601669],[-29.983406180705465,-51.19295954660629],[-29.98401951666727,-51.1907279487059],[-29.987699452884602,-51.19190812067245],[-29.98782954914374,-51.19246602014755],[-29.987216236715366,-51.194289922277676],[-29.989223426937,-51.19489073709701],[-29.992364221963978,-51.19598507837509],[-29.995374835958565,-51.19699358896469],[-29.99706594781026,-51.19757294676674],[-29.99756769484582,-51.197787523160514],[-30.000578151011922,-51.19896769512707],[-30.00403449260174,-51.20031952847057],[-30.0102593075562,-51.202701330403215],[-30.01293493082961,-51.20377421400917],[-30.014625738876397,-51.20529770872963],[-30.01585202118439,-51.20686411879433],[-30.017598518295657,-51.20888113997353],[-30.01823022244227,-51.209439039448625],[-30.02057120860273,-51.210962534169084],[-30.021890311379618,-51.21197104410385],[-30.02346949584871,-51.21373057321762],[-30.02542021840745,-51.21568322138046],[-30.02642344127725,-51.21718525973847],[-30.02638628539168,-51.21920228091767],[-30.025736055139912,-51.21913790790131],[-30.024825725622506,-51.219116450229194],[-30.024119750037823,-51.21967434970429],[-30.023005041510935,-51.22068285898422],[-30.025531696179975,-51.226025819341885],[-30.026144762724744,-51.2274205693393],[-30.026646367226967,-51.22948050586274],[-30.0272594359496,-51.23076796618989],[-30.029080041928694,-51.22990965930512],[-30.02870849240379,-51.22890114871552]];
+				array.push(teste);
+				$.moveMarker({
+					map: 
+					{
+						map: new google.maps.Map(document.getElementById('map_canvas'),mapOptions),
+						fitBounds: true
+					},
+					startOnInit: true, 
+					autoPlayOnFinish: true,
+					records: array,
+					normalStep: 10,
+					playPause:
+					{
+						enabled: true,
+						onMarker: true
+					},
+					tooltip: 
+					{ 
+						show: true,
+						cssClass: null
+					},					
+					images: 
+					{
+						normalIcon:
+						{
+							url: "mapDefaultPlay.png",
+							size:
+							{
+								width: 25,
+								height: 37
+							},
+							anchor: 
+							{	
+								x: 12,
+								y: 33
+							}
+						},
+						playIcon:
+						{
+							url: "mapDefaultPlay.png",
+							size:
+							{
+								width: 25,
+								height: 37
+							},
+							anchor: 
+							{	
+								x: 12,
+								y: 33
+							}
+						},
+						pauseIcon:
+						{ 
+							url: "mapDefaultPause.png",
+							size:
+							{
+								width: 25,
+								height: 37
+							},
+							anchor: 
+							{	
+								x: 12,
+								y: 33
+							}							
+						}
+					},									 
+					polyline:
+					{
+						show: true, 
+						showTrace: false, 
+						options:
+						{
+							strokeColor: '#899898'
+						}
+					}, 
+					routeEnd: 
+						function(id){
+							document.getElementById(id).value = document.getElementById(id).value == "Play " + id ? "Pause " + id : "Play " + id;
+						}
+				});
+			}
+			
+			function playPause(button, id){
+				button.value = button.value == "Play " + id ? "Pause " + id : "Play " + id;
+				$.moveMarker.pausePlay(id);
+			}
+
+		</script>
+	</head>
+	<body onload="initialize()">
+		<div style="width: 100%; height: 10%">
+			<div style="float: left; padding: 5px">
+				<h1 style="margin: 0 auto;">Opções de Velocidade</h1>
+				<input type="radio" value="0" name="speed" onclick="$.moveMarker.changeSpeed(this.value);" id="radioSlow" /><label for="radioSlow">Slow</label>
+				<input type="radio" value="1" name="speed" checked="checked" onclick="$.moveMarker.changeSpeed(this.value);" id="radioNormal" /><label for="radioNormal">Normal</label>
+				<input type="radio" value="2" name="speed" onclick="$.moveMarker.changeSpeed(this.value);" id="radioFast" /><label for="radioFast">Fast</label>
+			</div>
+			<div style="float: left; padding: 5px">
+				<h1 style="margin: 0 auto;">Opções de play</h1>
+				<input type="button" id="3" value="Play 3" onclick="playPause(this, 3)" />
+				<input type="button" id="5" value="Play 5" onclick="playPause(this, 5)" />
+			</div>
+			<div style="float: right; padding: 5px">
+				<h1 style="margin: 0 auto;">Tooltip</h1>
+				<input type="radio" value="0" name="tooltip" checked="checked" onclick="$.moveMarker.showTooltip(this.value);" id="radioShow" /><label for="radioShow">Show</label>
+				<input type="radio" value="1" name="tooltip" onclick="$.moveMarker.showTooltip(this.value);" id="radioHide" /><label for="radioHide">Hide</label>
+			</div>
+			<div style="float: right; padding: 5px">
+				<h1 style="margin: 0 auto;">Polyline</h1>
+				<input type="radio" value="0" name="polyline" checked="checked" onclick="$.moveMarker.showPolyline(this.value);" id="radioShowa" /><label for="radioShowa">Show</label>
+				<input type="radio" value="1" name="polyline" onclick="$.moveMarker.showPolyline(this.value);" id="radioHidea" /><label for="radioHidea">Hide</label>
+			</div>
+		</div>
+	<div id="map_canvas" style="width:100%;height:90%;"></div>
+	</body>
+</html>
